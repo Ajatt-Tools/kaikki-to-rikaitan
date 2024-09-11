@@ -1,0 +1,200 @@
+[
+  [
+    "fama",
+    "ipa",
+    {
+      "reading": "fāma",
+      "transcriptions": [
+        {
+          "ipa": "/ˈfaː.ma/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈfäːmä]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈfa.ma/",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "lego",
+    "ipa",
+    {
+      "reading": "legō",
+      "transcriptions": [
+        {
+          "ipa": "/ˈle.ɡoː/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈɫ̪ɛɡoː]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈle.ɡo/",
+          "tags": [
+            "✝️"
+          ]
+        },
+        {
+          "ipa": "[ˈlɛːɡo]",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "lilium",
+    "ipa",
+    {
+      "reading": "līlium",
+      "transcriptions": [
+        {
+          "ipa": "/ˈliː.li.um/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈlʲiːlʲiʊ̃ˑ]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈli.li.um/",
+          "tags": [
+            "✝️"
+          ]
+        },
+        {
+          "ipa": "[ˈliːlium]",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "usque",
+    "ipa",
+    {
+      "reading": "ū̆sque",
+      "transcriptions": [
+        {
+          "ipa": "/ˈuːs.kʷe/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈuːs̠kʷɛ]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈus.kʷe/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈʊs̠kʷɛ]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈus.kwe/",
+          "tags": [
+            "✝️"
+          ]
+        },
+        {
+          "ipa": "[ˈuskwe]",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "rectus",
+    "ipa",
+    {
+      "reading": "rēctus",
+      "transcriptions": [
+        {
+          "ipa": "/ˈreːk.tus/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈreːkt̪ʊs̠]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "/ˈrek.tus/",
+          "tags": [
+            "✝️"
+          ]
+        },
+        {
+          "ipa": "[ˈrɛkt̪us]",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "domus",
+    "ipa",
+    {
+      "reading": "domus",
+      "transcriptions": [
+        {
+          "ipa": "/ˈdo.mus/",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈd̪ɔmʊs̠]",
+          "tags": [
+            "Classical"
+          ]
+        },
+        {
+          "ipa": "[ˈd̪ɔːmus]",
+          "tags": [
+            "✝️"
+          ]
+        }
+      ]
+    }
+  ]
+]

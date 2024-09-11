@@ -1,0 +1,244 @@
+[
+  [
+    "fama",
+    "fāma",
+    "n decl-1",
+    "n",
+    0,
+    [
+      "fame",
+      "rumour, talk, opinion, report",
+      "reputation",
+      "Fama, personified as a fast-moving, malicious goddess, the daughter of Terra. From the Greek φήμη, Pheme. Typically translated from the Latin as “Rumor.”"
+    ],
+    0,
+    ""
+  ],
+  [
+    "lego",
+    "legō",
+    "v cnjg-3",
+    "v",
+    0,
+    [
+      "to choose, select",
+      "to appoint",
+      "to collect, gather, bring together",
+      "to take out, pick out, extract, remove",
+      "to take to one's self unjustly, carry off, steal, purloin, plunder, abstract",
+      "to read"
+    ],
+    0,
+    ""
+  ],
+  [
+    "lego",
+    "legō",
+    "v Medieval cnjg-3",
+    "v",
+    0,
+    [
+      "to teach, profess"
+    ],
+    0,
+    ""
+  ],
+  [
+    "lilium",
+    "līlium",
+    "n decl-2",
+    "n",
+    0,
+    [
+      "a lily"
+    ],
+    0,
+    ""
+  ],
+  [
+    "usque",
+    "ū̆sque",
+    "adv not-comp",
+    "adv",
+    0,
+    [
+      "all the way",
+      "until, up to (sometimes with \"ad\")",
+      "constantly, continuously"
+    ],
+    0,
+    ""
+  ],
+  [
+    "rectus",
+    "rēctus",
+    "v decl-1 decl-2 ptcpl",
+    "v",
+    0,
+    [
+      "led straight along, drawn in a straight line, straight, upright.",
+      "(in general) right, correct, proper, appropriate, befitting.",
+      "(in particular) morally right, correct, lawful, just, virtuous, noble, good, proper, honest."
+    ],
+    0,
+    ""
+  ],
+  [
+    "domus",
+    "",
+    "n decl-2 decl-4 fem irreg",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "house, home (the building where a person lives)"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "a townhouse"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "any dwelling-place or abode (of people or animals)",
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "the place of one's birth or residence, native country, town"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "(also of the shell of invertebrates, tombs of the dead)"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "household, family (the dependants of the head of a house)"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "a group of disciples, school; an intellectual movement"
+                ]
+              },
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "2. "
+                  },
+                  "(monarchy) house, dynasty"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "domus",
+    "",
+    "n decl-2 decl-4 fem idio irreg",
+    "n",
+    0,
+    [
+      "one's own possessions or resources",
+      "(in locative case in phrases) peace"
+    ],
+    0,
+    ""
+  ]
+]

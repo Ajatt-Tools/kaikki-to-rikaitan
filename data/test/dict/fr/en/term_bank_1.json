@@ -1,0 +1,240 @@
+[
+  [
+    "prendre",
+    "",
+    "v vt",
+    "v",
+    0,
+    [
+      "to take",
+      "to eat; to drink",
+      "to get; to buy",
+      "to rob; to deprive",
+      "to make",
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "(transitive with à)"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "(transitive, in various idiomatic expressions) to start having a negative feeling towards someone"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "prendre",
+    "",
+    "v vi",
+    "v",
+    0,
+    [
+      "to catch, to work, to start"
+    ],
+    0,
+    ""
+  ],
+  [
+    "prendre",
+    "",
+    "v vr",
+    "v",
+    0,
+    [
+      "to get (something) caught (in), to jam"
+    ],
+    0,
+    ""
+  ],
+  [
+    "prendre",
+    "",
+    "v",
+    "v",
+    0,
+    [
+      "(followed by a partitive, in various idiomatic expressions) to gain"
+    ],
+    0,
+    ""
+  ],
+  [
+    "prendre",
+    "",
+    "v col impers",
+    "v",
+    0,
+    [
+      "(colloquial; impersonal) to take (a certain amount of time)",
+      "(colloquial; impersonal; by extension) to take (a certain number or amount of)"
+    ],
+    0,
+    ""
+  ],
+  [
+    "prendre",
+    "",
+    "v impers",
+    "v",
+    0,
+    [
+      "to come over (to arise in and gain some control over one's thoughts and/or actions)"
+    ],
+    0,
+    ""
+  ],
+  [
+    "sembler",
+    "",
+    "v impers vi",
+    "v",
+    0,
+    [
+      "to seem, to resemble"
+    ],
+    0,
+    ""
+  ],
+  [
+    "sembler",
+    "",
+    "v vi",
+    "v",
+    0,
+    [
+      "to appear"
+    ],
+    0,
+    ""
+  ],
+  [
+    "chambre",
+    "",
+    "n fem",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "a chamber in its various senses, including:"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "a room."
+                ]
+              },
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "2. "
+                  },
+                  "a hotel room."
+                ]
+              },
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "3. "
+                  },
+                  "a bedroom."
+                ]
+              },
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "4. "
+                  },
+                  "a house of a parliament."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    0,
+    ""
+  ]
+]

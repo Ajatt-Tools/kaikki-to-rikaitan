@@ -1,0 +1,91 @@
+[
+  [
+    "pflegen",
+    "ipa",
+    {
+      "reading": "pflegen",
+      "transcriptions": [
+        {
+          "ipa": "/ˈpfleːɡən/",
+          "tags": []
+        },
+        {
+          "ipa": "[ˈpfleːɡən]",
+          "tags": []
+        },
+        {
+          "ipa": "[ˈpfleːɡŋ̩]",
+          "tags": []
+        },
+        {
+          "ipa": "/ˈfleːɡən/",
+          "tags": []
+        }
+      ]
+    }
+  ],
+  [
+    "Fuchs",
+    "ipa",
+    {
+      "reading": "Fuchs",
+      "transcriptions": [
+        {
+          "ipa": "/fʊks/",
+          "tags": []
+        }
+      ]
+    }
+  ],
+  [
+    "Herz",
+    "ipa",
+    {
+      "reading": "Herz",
+      "transcriptions": [
+        {
+          "ipa": "/hɛrts/",
+          "tags": []
+        },
+        {
+          "ipa": "[hɛʁt͡s]",
+          "tags": []
+        },
+        {
+          "ipa": "[hɛɐ̯t͡s]",
+          "tags": []
+        }
+      ]
+    }
+  ],
+  [
+    "Fahrer",
+    "ipa",
+    {
+      "reading": "Fahrer",
+      "transcriptions": [
+        {
+          "ipa": "/ˈfaːʁɐ/",
+          "tags": []
+        }
+      ]
+    }
+  ],
+  [
+    "von",
+    "ipa",
+    {
+      "reading": "von",
+      "transcriptions": [
+        {
+          "ipa": "/fɔn/",
+          "tags": []
+        },
+        {
+          "ipa": "[fɔn]",
+          "tags": []
+        }
+      ]
+    }
+  ]
+]

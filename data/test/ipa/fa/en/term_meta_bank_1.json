@@ -1,0 +1,73 @@
+[
+  [
+    "ملک",
+    "ipa",
+    {
+      "reading": "molk",
+      "transcriptions": [
+        {
+          "ipa": "[mulk]",
+          "tags": [
+            "classic"
+          ]
+        },
+        {
+          "ipa": "[mʊlk]",
+          "tags": [
+            "🇦🇫",
+            "frm"
+          ]
+        },
+        {
+          "ipa": "[molkʲ]",
+          "tags": [
+            "🇮🇷",
+            "frm"
+          ]
+        }
+      ]
+    }
+  ],
+  [
+    "فارْسی",
+    "ipa",
+    {
+      "reading": "fârsi",
+      "transcriptions": [
+        {
+          "ipa": "[fɑːɾ.ˈsiː]",
+          "tags": [
+            "classic"
+          ]
+        },
+        {
+          "ipa": "[fɑːɾ.síː]",
+          "tags": [
+            "🇦🇫",
+            "frm"
+          ]
+        },
+        {
+          "ipa": "[fɔːɾ.sí]",
+          "tags": [
+            "Hazaragi"
+          ]
+        },
+        {
+          "ipa": "[fɒːɹ.síː]",
+          "tags": [
+            "🇮🇷",
+            "frm"
+          ]
+        },
+        {
+          "ipa": "[fɔɾ.sí]",
+          "tags": [
+            "🇹🇯",
+            "frm"
+          ]
+        }
+      ]
+    }
+  ]
+]

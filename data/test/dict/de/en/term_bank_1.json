@@ -1,0 +1,371 @@
+[
+  [
+    "pflegen",
+    "",
+    "v c-4 strong vt",
+    "v",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "Providing care or service for someone/something. [weak verb]"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "(transitive, medicine) to nurse; to care for someone in poor health"
+                ]
+              },
+              [
+                {
+                  "tag": "div",
+                  "data": {
+                    "listType": "number"
+                  },
+                  "content": [
+                    {
+                      "tag": "span",
+                      "data": {
+                        "listType": "number"
+                      },
+                      "content": "2. "
+                    },
+                    "(transitive) to take care of, to tend to, to maintain"
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "data": {
+                    "listType": "ol"
+                  },
+                  "style": {
+                    "marginLeft": 3
+                  },
+                  "content": [
+                    {
+                      "tag": "div",
+                      "data": {
+                        "listType": "li"
+                      },
+                      "content": [
+                        {
+                          "tag": "span",
+                          "data": {
+                            "listType": "number"
+                          },
+                          "content": "1. "
+                        },
+                        "(intransitive, archaic, with genitive)"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "pflegen",
+    "",
+    "v c-4 strong",
+    "v",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "To improve or care for something in an intellectual sense. [weak or strong verb]"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              [
+                {
+                  "tag": "div",
+                  "data": {
+                    "listType": "number"
+                  },
+                  "content": [
+                    {
+                      "tag": "span",
+                      "data": {
+                        "listType": "number"
+                      },
+                      "content": "1. "
+                    },
+                    "(transitive) to cultivate; to foster; to nurture; to maintain"
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "data": {
+                    "listType": "ol"
+                  },
+                  "style": {
+                    "marginLeft": 3
+                  },
+                  "content": [
+                    {
+                      "tag": "div",
+                      "data": {
+                        "listType": "li"
+                      },
+                      "content": [
+                        {
+                          "tag": "span",
+                          "data": {
+                            "listType": "number"
+                          },
+                          "content": "1. "
+                        },
+                        "(intransitive, higher register or poetic, with genitive)"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "structured-content",
+        "content": [
+          {
+            "tag": "div",
+            "data": {
+              "listType": "li"
+            },
+            "content": "Expressing habituality. [weak or strong verb]"
+          },
+          {
+            "tag": "div",
+            "data": {
+              "listType": "ol"
+            },
+            "style": {
+              "marginLeft": 2
+            },
+            "content": [
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "1. "
+                  },
+                  "(transitive) to carry out regularly"
+                ]
+              },
+              {
+                "tag": "div",
+                "data": {
+                  "listType": "li"
+                },
+                "content": [
+                  {
+                    "tag": "span",
+                    "data": {
+                      "listType": "number"
+                    },
+                    "content": "2. "
+                  },
+                  "(intransitive, with “zu” followed by an infinitive verb) to perform habitually; to be accustomed (to doing something); to be in the habit (of doing something)"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n masc strong",
+    "n",
+    0,
+    [
+      "fox (animal)",
+      "pledge (prospective member of a fraternity)",
+      "a fox in radiosport foxhunt"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n inf masc strong",
+    "n",
+    0,
+    [
+      "a clever or cunning person",
+      "a red-haired person or horse."
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n masc sl strong mil",
+    "n",
+    0,
+    [
+      "A new recruit."
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n masc strong cards",
+    "n",
+    0,
+    [
+      "In Doppelkopf, the ace of diamonds, which earns a side of players an extra point if they win it from the other side"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n masc strong mil",
+    "n",
+    0,
+    [
+      "a tank Transportpanzer Fuchs"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n arch masc strong",
+    "n",
+    0,
+    [
+      "A form of sunscald on hops."
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fuchs",
+    "",
+    "n masc obs strong",
+    "n",
+    0,
+    [
+      "any gold coin"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Herz",
+    "",
+    "n neut rare",
+    "n",
+    0,
+    [
+      "heart",
+      "sweetheart, darling"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Herz",
+    "",
+    "n neut rare cards",
+    "n",
+    0,
+    [
+      "hearts"
+    ],
+    0,
+    ""
+  ],
+  [
+    "Fahrer",
+    "",
+    "n masc strong",
+    "n",
+    0,
+    [
+      "agent noun of fahren; driver (person)"
+    ],
+    0,
+    ""
+  ],
+  [
+    "von",
+    "",
+    "prep",
+    "prep",
+    0,
+    [
+      "from",
+      "of, belonging to (often replacing genitive; see usage note below)",
+      "by (with passive voice)",
+      "about, of (a topic)",
+      "on, with (a resource)"
+    ],
+    0,
+    ""
+  ]
+]

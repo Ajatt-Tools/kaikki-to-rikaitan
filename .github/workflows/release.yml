@@ -13,7 +13,7 @@ jobs:
       calver: ${{ steps.tag.outputs.calver }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -50,7 +50,7 @@ jobs:
           echo "languages=$languages" >> $GITHUB_OUTPUT
           isos=$(jq -r '.[].iso' languages.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "isos=$isos" >> $GITHUB_OUTPUT
-      
+
       - name: Generate markdown table
         id: generate_markdown
         run: |
@@ -61,7 +61,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "Update downloads.md with list of .zip files"
-          body: "This PR updates the downloads.md file with a table listing all .zip files."  
+          body: "This PR updates the downloads.md file with a table listing all .zip files."
 
   convert:
     needs: prepare
@@ -72,8 +72,8 @@ jobs:
         edition_language: ${{fromJson(needs.prepare.outputs.languages)}}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      
+        uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -83,7 +83,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-    
+
       - name: Create .env file
         run: |
           cp .env.example .env
@@ -94,7 +94,7 @@ jobs:
 
       - name: Install gzip
         run: sudo apt-get install -y gzip
-      
+
       - name: Run auto.sh script
         run: ./auto.sh "${{ matrix.edition_language }}" ? ?
 
@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -130,7 +130,7 @@ jobs:
 
       - name: Install npm dependencies
         run: npm install
-      
+
       - name: Download IPA dicts
         run: |
           mapfile -t iso_array < <(printf '%s' '${{needs.prepare.outputs.isos}}' | jq -r '.[]')
@@ -155,7 +155,7 @@ jobs:
 
       - name: Delete downloaded IPA files
         run: rm *.zip
-      
+
       - name: Upload dictionary files
         uses: softprops/action-gh-release@v2
         with:

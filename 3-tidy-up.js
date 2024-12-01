@@ -2,7 +2,7 @@ const { writeFileSync } = require('fs');
 
 const LineByLineReader = require('line-by-line');
 
-const { 
+const {
     source_iso: sourceIso,
     target_iso: targetIso,
     kaikki_file: kaikkiFile,
@@ -29,8 +29,8 @@ function escapeRegExp(string) {
 }
 
 /**
- * @param {string[]} glosses 
- * @param {FormOf[]|undefined} formOf 
+ * @param {string[]} glosses
+ * @param {FormOf[]|undefined} formOf
  * @returns {boolean}
  */
 function isInflectionGloss(glosses, formOf) {
@@ -45,7 +45,7 @@ function isInflectionGloss(glosses, formOf) {
                 if(!lemma) continue;
                 if (glosses.some(gloss => new RegExp(`of ${escapeRegExp(lemma)}$`).test(gloss))) return true;
             }
-            
+
         case 'fr':
             if (/.*du verbe\s+((?:(?!\bdu\b).)*)$/.test(glossesString)) return true;
             if (/((?:(?:Masculin|Féminin)\s)?(?:(?:p|P)luriel|(?:s|S)ingulier)) de ([^\s]+)/.test(glossesString)) return true;
@@ -54,10 +54,10 @@ function isInflectionGloss(glosses, formOf) {
 }
 
 /**
- * @param {string} form 
- * @param {string} pos 
- * @param {string} lemma 
- * @param {string[]|Set<string>} inflections 
+ * @param {string} form
+ * @param {string} pos
+ * @param {string} lemma
+ * @param {string[]|Set<string>} inflections
  */
 function addDeinflections(form, pos, lemma, inflections) {
     if (targetIso === 'fr') {
@@ -75,7 +75,7 @@ function addDeinflections(form, pos, lemma, inflections) {
         for (const inflection of inflections) {
             inflectionsSet.add(inflection);
         }
-    
+
         formPOSs.set(pos, Array.from(inflectionsSet));
     } catch(e) {
         console.log(e);
@@ -121,21 +121,21 @@ lr.on('line', (line) => {
 });
 
 /**
- * @param {KaikkiLine} parsedLine 
+ * @param {KaikkiLine} parsedLine
  */
 function handleLine(parsedLine) {
     const { pos, sounds, forms, etymology_number = 0 } = parsedLine;
     if(!pos) return;
     const word = getCanonicalWordForm(parsedLine);
     if (!word) return;
-    
+
     processForms(forms, word, pos);
 
     const {senses} = parsedLine;
     if (!senses) return;
-    
+
     /** @type {IpaInfo[]} */
-    const ipa = /** @type {IpaInfo[]} */ (sounds 
+    const ipa = /** @type {IpaInfo[]} */ (sounds
         ? sounds
             .filter(sound => sound && sound.ipa)
             .map(({ipa, tags, note}) => {
@@ -151,7 +151,7 @@ function handleLine(parsedLine) {
             .flatMap(ipaObj => typeof ipaObj.ipa === 'string' ? [ipaObj] : ipaObj?.ipa?.map(ipa => ({ ipa, tags: ipaObj.tags })) )
             .filter(ipaObj => ipaObj?.ipa)
         : []);
-    
+
     /** @type {TidySense[]} */
     const sensesWithGlosses = /** @type {TidySense[]} */ (senses
         .filter(sense => sense.glosses || sense.raw_glosses || sense.raw_gloss)
@@ -175,7 +175,7 @@ function handleLine(parsedLine) {
     });
 
     if (sensesWithoutInflectionGlosses.length === 0) return;
-    
+
     const readings = getReadings(word, parsedLine);
     initializeWordResult(word, readings, pos, String(etymology_number));
 
@@ -184,23 +184,23 @@ function handleLine(parsedLine) {
     }
 
     const glossTree = getGlossTree(sensesWithoutInflectionGlosses);
-    
+
     for (const reading of readings) {
         const posDict = lemmaDict[word]?.[reading]?.[pos] || {};
         let etymNum = etymology_number;
         let result = posDict[String(etymNum)];
-    
+
         while (result?.glossTree?.size > 0) {
             etymNum += 1;
             result = posDict[String(etymNum)];
         }
-    
+
         result = /** @type {LemmaInfo} */ (ensureNestedObject(lemmaDict, [word, reading, pos, String(etymNum)]));
-    
+
         result.ipa ??= ipa;
         result.glossTree = glossTree;
     }
-    
+
 }
 
 /**
@@ -208,7 +208,7 @@ function handleLine(parsedLine) {
  * @returns {StandardizedExample}
  * */
 function standardizeExample(example) {
-    return { 
+    return {
         text: example.text ? example.text.trim() : '',
         translation: getTranslationFromExample(example),
     };
@@ -231,7 +231,7 @@ function getTranslationFromExample(example) {
 }
 
 /**
- * @param {TidySense[]} sensesWithoutInflectionGlosses 
+ * @param {TidySense[]} sensesWithoutInflectionGlosses
  * @returns {GlossTree}
  */
 function getGlossTree(sensesWithoutInflectionGlosses) {
@@ -240,7 +240,7 @@ function getGlossTree(sensesWithoutInflectionGlosses) {
     for (const sense of sensesWithoutInflectionGlosses) {
         const { glossesArray, tags } = sense;
         let { examples = [] } = sense;
-        
+
         examples = examples
             .filter(example => example.text)
             .map(example => standardizeExample(example))
@@ -265,7 +265,7 @@ function getGlossTree(sensesWithoutInflectionGlosses) {
             if (levelIndex === 0) {
                 const branch = /** @type {GlossBranch} */ (curr);
                 const filteredTags = curr.get('_tags') ? tags.filter(value => branch.get('_tags')?.includes(value)) : tags;
-                branch.set('_tags', filteredTags);   
+                branch.set('_tags', filteredTags);
             }
             if(levelIndex === glossesArray.length - 1) {
                 curr.set('_examples', examples);
@@ -278,8 +278,8 @@ function getGlossTree(sensesWithoutInflectionGlosses) {
 
 /**
  * @param {FormInfo[]|undefined} forms
- * @param {string} word 
- * @param {string} pos 
+ * @param {string} word
+ * @param {string} pos
  */
 function processForms(forms, word, pos) {
     if(!forms) return;
@@ -312,11 +312,11 @@ function processForms(forms, word, pos) {
 }
 
 /**
- * @param {string} word 
- * @param {string[]} readings 
- * @param {string} pos 
+ * @param {string} word
+ * @param {string[]} readings
+ * @param {string} pos
  * @param {string} etymology_number
- * @param {IpaInfo} ipaObj 
+ * @param {IpaInfo} ipaObj
  */
 function saveIpaResult(word, readings, pos, etymology_number, ipaObj) {
     for (const reading of readings) {
@@ -331,9 +331,9 @@ function saveIpaResult(word, readings, pos, etymology_number, ipaObj) {
 }
 
 /**
- * @param {string} word 
- * @param {string[]} readings 
- * @param {string} pos 
+ * @param {string} word
+ * @param {string[]} readings
+ * @param {string} pos
  * @param {string} etymology_number
  */
 function initializeWordResult(word, readings, pos, etymology_number) {
@@ -346,9 +346,9 @@ function initializeWordResult(word, readings, pos, etymology_number) {
 
 /**
  * @param {Glosses|undefined} glosses
- * @param {string} word 
- * @param {string} pos 
- * @returns 
+ * @param {string} word
+ * @param {string} pos
+ * @returns
  */
 function processInflectionGlosses(glosses, word, pos) {
     switch (targetIso) {
@@ -387,10 +387,10 @@ function processInflectionGlosses(glosses, word, pos) {
 }
 
 /**
- * @param {Glosses|undefined} glosses 
- * @param {string} word 
- * @param {string} pos 
- * @returns 
+ * @param {Glosses|undefined} glosses
+ * @param {string} word
+ * @param {string} pos
+ * @returns
  */
 function processGermanInflectionGlosses(glosses, word, pos) {
     if (!glosses || !Array.isArray(glosses)) return;
@@ -405,7 +405,7 @@ function processGermanInflectionGlosses(glosses, word, pos) {
 
 /**
  * @param {NestedObject} obj
- * @param {string[]} keys 
+ * @param {string[]} keys
  * @returns {NestedObject}
  */
 function ensureNestedObject(obj, keys) {
@@ -418,8 +418,8 @@ function ensureNestedObject(obj, keys) {
 
 /**
  * @param {Glosses|undefined} glosses
- * @param {string} word 
- * @param {string} pos 
+ * @param {string} word
+ * @param {string} pos
  */
 function processEnglishInflectionGlosses(glosses, word, pos) {
     if(!glosses || !Array.isArray(glosses)) return;
@@ -453,9 +453,9 @@ function processEnglishInflectionGlosses(glosses, word, pos) {
             .replace(/:/g, '')
             .trim();
 
-        inflections.add(inflection); 
+        inflections.add(inflection);
     }
-    
+
     const lemma = lemmas.values().next().value;
     if (word !== lemma) {
         for (const inflection of [...inflections].filter(Boolean)) {
@@ -478,8 +478,8 @@ function getCanonicalWordForm({word, forms}) {
         case 'ru':
             return getCanonicalForm(word, forms); // canonical form is known to contain accent marks and such
         case 'de':
-        // case 'fr': // canonical form sometimes just prepends the definite article, but many differ from the word in apostrophe variant. I don't know which is used in practice so leaving it until there's a rikaitan preprocessor for french apostrophe usage. 
-        case 'en': 
+        case 'fr':
+        case 'en':
             return word; // canonical form is redundant, e.g. just prepends the definite article
         default:
             return getCanonicalForm(word, forms); // default could go either way. keeping existing behavior for now
@@ -487,8 +487,8 @@ function getCanonicalWordForm({word, forms}) {
 }
 
 /**
- * @param {string|undefined} word 
- * @param {FormInfo[]} forms 
+ * @param {string|undefined} word
+ * @param {FormInfo[]} forms
  * @returns {string|undefined}
  */
 function getCanonicalForm(word, forms) {
@@ -511,8 +511,8 @@ function getCanonicalForm(word, forms) {
 }
 
 /**
- * @param {string} word 
- * @param {KaikkiLine} line 
+ * @param {string} word
+ * @param {KaikkiLine} line
  * @returns {string[]}
  */
 function getReadings(word, line){
@@ -525,8 +525,8 @@ function getReadings(word, line){
 }
 
 /**
- * @param {string} word 
- * @param {KaikkiLine} line 
+ * @param {string} word
+ * @param {KaikkiLine} line
  * @returns {string}
  */
 function getPersianReading(word, line){
@@ -537,8 +537,8 @@ function getPersianReading(word, line){
 }
 
 /**
- * @param {string} word 
- * @param {KaikkiLine} line 
+ * @param {string} word
+ * @param {KaikkiLine} line
  * @returns {string[]}
  */
 function getJapaneseReadings(word, line){
@@ -591,9 +591,9 @@ function handleAutomatedForms() {
             counter += 1;
             logProgress("Processing automated forms", counter, total);
             if (!formsMap.get(lemma)?.get(form)) {
-                missingForms += 1;  
+                missingForms += 1;
                 for (const [pos, glosses] of posInfo.entries()) {
-            
+
                     if (form !== lemma) {
                         addDeinflections(form, pos, lemma, glosses);
                     }
@@ -615,7 +615,7 @@ lr.on('end', () => {
     const lemmasFilePath = `${writeFolder}/${sourceIso}-${targetIso}-lemmas.json`;
     consoleOverwrite(`3-tidy-up.js: Writing lemma dict to ${lemmasFilePath}...`);
     writeFileSync(lemmasFilePath, JSON.stringify(lemmaDict, mapJsonReplacer));
-    
+
     for (const prop of Object.getOwnPropertyNames(lemmaDict)) {
         delete lemmaDict[prop];
     }
@@ -632,7 +632,7 @@ lr.on('end', () => {
         acc[chunkIndex].set(key, value);
         return acc;
     }, /** @type {{[chunkIndex: string]: FormsMap}} */ ({}));
-    
+
     if(!mapChunks['0']) {
         mapChunks['0'] = new Map();
     }

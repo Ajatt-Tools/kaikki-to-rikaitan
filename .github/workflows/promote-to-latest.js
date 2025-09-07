@@ -1,3 +1,4 @@
+// Note: this file isn't needed.
 const AWS = require('aws-sdk');
 
 // Configure AWS SDK for Cloudflare R2

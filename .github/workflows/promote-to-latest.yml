@@ -1,3 +1,4 @@
+# Note: this file isn't needed.
 name: Promote Newest Release to Latest
 
 on:

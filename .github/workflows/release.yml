@@ -67,7 +67,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: ${{ needs.prepare.outputs.calver || steps.tag.outputs.calver }}
           tag_name: ${{ steps.tag.outputs.tag }}
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
 
       - name: Create pull request if necessary
@@ -118,7 +118,7 @@ jobs:
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
           files: "data/language/**/kty-{[a-z][a-z],[a-z][a-z][a-z]}-{[a-z][a-z],[a-z][a-z][a-z]}.zip"
 
@@ -145,7 +145,7 @@ jobs:
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
           files: "data/language/**/kty-{[a-z][a-z],[a-z][a-z][a-z]}-{[a-z][a-z],[a-z][a-z][a-z]}-index.json"
 
@@ -166,8 +166,8 @@ jobs:
 
       - name: Download IPA dicts
         run: |
-          mapfile -t iso_array < <(printf '%s' '${{needs.prepare.outputs.isos}}' | jq -r '.[]')
-          edition_languages=$(printf '%s' '${{needs.prepare.outputs.edition_languages}}' | jq -r 'join(" ")')
+          mapfile -t iso_array < <(printf '%s' '${{ needs.prepare.outputs.isos }}' | jq -r '.[]')
+          edition_languages=$(printf '%s' '${{ needs.prepare.outputs.edition_languages }}' | jq -r 'join(" ")')
           for source_iso in "${iso_array[@]}"; do
             for target_iso in "${iso_array[@]}"; do
               filename="kty-${source_iso}-${target_iso}-ipa.zip"
@@ -178,7 +178,7 @@ jobs:
               if [[ ! "$edition_languages" == *"$target_iso"* ]]; then
                   continue
               fi
-              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{needs.prepare.outputs.tag}}/kty-${source_iso}-${target_iso}-ipa.zip"
+              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{ needs.prepare.outputs.tag }}/kty-${source_iso}-${target_iso}-ipa.zip"
               curl -s -O -f -L "$url" || echo "Skipping $url due to an error."
             done
           done
@@ -194,7 +194,7 @@ jobs:
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
           files: "data/language/**/*.zip"
 

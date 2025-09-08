@@ -1,4 +1,5 @@
 #!/bin/bash
+# Example run: bash auto.sh Japanese '?' '?'
 
 convertMainDict(){
   export target_iso="$edition_iso"
@@ -33,8 +34,8 @@ convertMainDict(){
     echo "Creating Rikaitan dict and IPA files"
     if node --max-old-space-size="$max_memory_mb" 4-make-rikaitan.js; then
       echo "Zipping Rikaitan files"
-      zip -qj "$dict_file" $temp_dict_folder/index.json $temp_dict_folder/styles.css $temp_dict_folder/tag_bank_1.json $temp_dict_folder/term_bank_*.json 
-      zip -qj "$ipa_file" $temp_ipa_folder/index.json $temp_ipa_folder/tag_bank_1.json $temp_ipa_folder/term_meta_bank_*.json
+      zip -qj "$dict_file" "$temp_dict_folder/index.json" "$temp_dict_folder/styles.css" "$temp_dict_folder/tag_bank_1.json" "$temp_dict_folder"/term_bank_*.json
+      zip -qj "$ipa_file" "$temp_ipa_folder/index.json" "$temp_ipa_folder/tag_bank_1.json" "$temp_ipa_folder"/term_meta_bank_*.json
     else
       echo "Error: Rikaitan generation script failed."
     fi
@@ -43,19 +44,19 @@ convertMainDict(){
   fi
 
   if [ -f "$dict_file" ]; then
-    mv "$dict_file" "data/language/$source_iso/$target_iso/"
+    mv -- "$dict_file" "data/language/$source_iso/$target_iso/"
   fi
 
   if [ -f "$ipa_file" ]; then
-    mv "$ipa_file" "data/language/$source_iso/$target_iso/"
+    mv -- "$ipa_file" "data/language/$source_iso/$target_iso/"
   fi
 
   if [ -f "$temp_dict_folder/index.json" ]; then
-    mv "$temp_dict_folder/index.json" "data/language/$source_iso/$target_iso/$dict_title-index.json"
+    mv -- "$temp_dict_folder/index.json" "data/language/$source_iso/$target_iso/$dict_title-index.json"
   fi
 
   if [ -f "$temp_ipa_folder/index.json" ]; then
-    mv "$temp_ipa_folder/index.json" "data/language/$source_iso/$target_iso/${dict_title}-ipa-index.json"
+    mv -- "$temp_ipa_folder/index.json" "data/language/$source_iso/$target_iso/${dict_title}-ipa-index.json"
   fi
 
   echo "----------------------------------------------------------------------------------"
@@ -76,7 +77,7 @@ convertGlossary(){
   echo "Creating Rikaitan dict files"
   if node --max-old-space-size="$max_memory_mb" make-glossary.js; then
     echo "Zipping Rikaitan files"
-    zip -qj "$dict_file" $temp_folder/dict/index.json $temp_folder/dict/tag_bank_1.json $temp_folder/dict/term_bank_*.json
+    zip -qj "$dict_file" "$temp_folder/dict/index.json" "$temp_folder/dict/tag_bank_1.json" "$temp_folder"/dict/term_bank_*.json
   else
     echo "Error: Rikaitan generation script failed."
   fi
@@ -95,7 +96,10 @@ convertGlossary(){
   fi
 }
 
-source .env
+source .env.example
+if [[ -f .env ]]; then
+	source .env
+fi
 export DEBUG_WORD
 export DICT_NAME
 max_memory_mb=${MAX_MEMORY_MB:-8192}

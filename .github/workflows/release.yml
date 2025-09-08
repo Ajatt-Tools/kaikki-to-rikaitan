@@ -46,7 +46,7 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "calver=$CALVER" >> $GITHUB_OUTPUT
           git tag -a "$TAG" -m "Published version $TAG" ${GITHUB_SHA}
-          git push origin "$TAG"
+          git push origin "$TAG" || true
 
       - name: Load Languages
         id: load-languages

@@ -60,6 +60,16 @@ jobs:
         run: |
           ./tools/generate-downloads-table.sh
 
+      - name: Create GitHub release (single)
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ needs.prepare.outputs.calver || steps.tag.outputs.calver }}
+          tag_name: ${{ steps.tag.outputs.tag }}
+          prerelease: false
+          generate_release_notes: true
+
       - name: Create pull request if necessary
         uses: peter-evans/create-pull-request@v4
         with:

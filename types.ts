@@ -1,6 +1,6 @@
-import * as TermBank from './node_modules/yomichan-dict-builder/src/types/rikaitan/termbank';
-import * as TagBank from './node_modules/yomichan-dict-builder/src/types/rikaitan/tagbank';
-import * as TermBankMeta from './node_modules/yomichan-dict-builder/src/types/rikaitan/termbankmeta';
+import * as TermBank from './node_modules/rikaitan-dict-builder/src/types/rikaitan/termbank';
+import * as TagBank from './node_modules/rikaitan-dict-builder/src/types/rikaitan/tagbank';
+import * as TermBankMeta from './node_modules/rikaitan-dict-builder/src/types/rikaitan/termbankmeta';
 
 declare global {
     // 3-tidy-up.js types:

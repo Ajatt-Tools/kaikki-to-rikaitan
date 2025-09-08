@@ -15,7 +15,7 @@
     "date-and-time": "^2.4.2",
     "line-by-line": "^0.1.6",
     "node-stream-zip": "^1.15.0",
-    "yomichan-dict-builder": "^2.9.2"
+    "rikaitan-dict-builder": "git+https://github.com/Ajatt-Tools/rikaitan-dict-builder.git#2659842f2e1ace1207eed182ad8f3ea6b3d8b22c"
   },
   "description": "Converts Kaikki JSON to Rikaitan compatible dictionary.",
   "devDependencies": {

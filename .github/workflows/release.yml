@@ -1,3 +1,4 @@
+# https://github.com/softprops/action-gh-release/issues/616
 name: Create a new release
 
 on:
@@ -62,11 +63,12 @@ jobs:
 
       - name: Create GitHub release (single)
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: ${{ needs.prepare.outputs.calver || steps.tag.outputs.calver }}
           tag_name: ${{ steps.tag.outputs.tag }}
+          draft: true
           prerelease: true
           generate_release_notes: true
 
@@ -114,7 +116,7 @@ jobs:
         run: ./auto.sh "${{ matrix.edition_language }}" "?" "?"
 
       - name: Upload main dictionary files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
@@ -123,7 +125,7 @@ jobs:
           files: "data/language/**/kty-{[a-z][a-z],[a-z][a-z][a-z]}-{[a-z][a-z],[a-z][a-z][a-z]}.zip"
 
       - name: Upload ipa dictionary files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
@@ -132,7 +134,7 @@ jobs:
           files: "data/language/**/kty-{[a-z][a-z],[a-z][a-z][a-z]}-{[a-z][a-z],[a-z][a-z][a-z]}-ipa.zip"
 
       - name: Upload gloss dictionary files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
@@ -141,7 +143,7 @@ jobs:
           files: "data/language/**/kty-{[a-z][a-z],[a-z][a-z][a-z]}-{[a-z][a-z],[a-z][a-z][a-z]}-gloss.zip"
 
       - name: Upload index.json files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
@@ -190,7 +192,7 @@ jobs:
         run: rm *.zip
 
       - name: Upload merged IPA dictionary files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ needs.prepare.outputs.calver }}
           tag_name: ${{ needs.prepare.outputs.tag }}
@@ -199,7 +201,7 @@ jobs:
           files: "data/language/**/*.zip"
 
       # - name: Upload index.json files
-      #   uses: softprops/action-gh-release@v2
+      #   uses: softprops/action-gh-release@v2.2.1
       #   with:
       #     name: ${{ needs.prepare.outputs.calver }}
       #     tag_name: ${{ needs.prepare.outputs.tag }}

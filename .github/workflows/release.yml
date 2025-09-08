@@ -71,7 +71,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      max-parallel: 18
       matrix:
         edition_language: ${{fromJson(needs.prepare.outputs.edition_languages)}}
     steps:

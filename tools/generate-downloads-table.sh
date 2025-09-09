@@ -1,10 +1,14 @@
-first_text="# Downloads
+#!/bin/bash
+
+readonly repo_url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan"
+
+readonly first_text="# Downloads
 
 Currently, [Kaikki](https://kaikki.org/dictionary/rawdata.html) supports 18 wiktionary editions (en, zh, nl, fr, el, de, id, it, ja, ko, ku, ms, ru, pl, pt, es, th and tu), so only dictionaries including these languages are available.
 
-If the language you want isn't here, or you would like to see an improvement to a dictionary, please [open an issue](https://github.com/Ajatt-Tools/kaikki-to-rikaitan/issues/new).
+If the language you want isn't here, or you would like to see an improvement to a dictionary, please [open an issue]($repo_url/issues/new).
 
-Some of the dictionaries listed here are small; rather than decide on a lower bound for usefulness they are all included here. 
+Some of the dictionaries listed here are small; rather than decide on a lower bound for usefulness they are all included here.
 
 <sub><sup> Languages are referred to by their shortest [ISO code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) (ISO 639-1 where available, [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-3_codes) where not)</sup></sub>
 
@@ -20,9 +24,14 @@ This table contains the main dictionaries:
 } > downloads.md
 
 
-declare -a languages="($(
-  jq -r '.[] | @json | @sh' languages.json
-))"
+languages=()
+while read -r language; do
+	language=${language%\'}
+	language=${language#\'}
+	languages+=( "$language" )
+done <<< "$(  jq -r '.[] | @json | @sh' languages.json )"
+readonly -a languages
+echo "got ${#languages[@]} languages"
 
 columns=()
 header="| |"
@@ -41,18 +50,29 @@ done
 echo "$header" > main-table.md
 echo "$divider" >> main-table.md
 
+# the newest tag can be passed as the first arg
+newest_tag=${1:-$(  git describe --tags --abbrev=0  )}
+newest_tag=${newest_tag%_ipa}
+newest_tag=${newest_tag%_gloss}
+readonly newest_tag
+echo "newest tag: $newest_tag"
+if [[ -z $newest_tag ]]; then
+	exit 1
+fi
+
 for source_lang in "${languages[@]}"; do
     source_iso=$(echo "${source_lang}" | jq -r '.iso')
     source_language_name=$(echo "${source_lang}" | jq -r '.language')
     flag=$(echo "${source_lang}" | jq -r '.flag')
-        
+
     row="| $flag ($source_iso) </br> $source_language_name "
 
     for column in "${columns[@]}"; do
         cell=""
         expected_filename="${source_iso}-${column}"
 
-        cell="$cell [$expected_filename](https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/latest/download/kty-$expected_filename.zip) </br>"
+        dl_url="$repo_url/releases/download/${newest_tag}/kty-${expected_filename}.zip"
+        cell="$cell [$expected_filename]($dl_url) </br>"
 
         row="$row | $cell"
     done
@@ -74,7 +94,7 @@ These dictionaries contain the International Phonetic Alphabet (IPA) transcripti
 } >> downloads.md
 
 ipa_header="$header Merged |"
-ipa_divider="$divider---|"  
+ipa_divider="$divider---|"
 ipa_columns=("${columns[@]}" "merged")
 
 echo "$ipa_header" > ipa-table.md
@@ -84,7 +104,7 @@ for source_lang in "${languages[@]}"; do
     source_iso=$(echo "${source_lang}" | jq -r '.iso')
     source_language_name=$(echo "${source_lang}" | jq -r '.language')
     flag=$(echo "${source_lang}" | jq -r '.flag')
-        
+
     row="| $flag </br> $source_language_name ($source_iso)"
 
     for column in "${ipa_columns[@]}"; do
@@ -95,7 +115,9 @@ for source_lang in "${languages[@]}"; do
             expected_filename="${source_iso}-ipa"
             display_filename="${source_iso} merged"
         fi
-        cell="$cell [$display_filename](https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/latest/download/kty-$expected_filename.zip) </br>"
+
+        dl_url="$repo_url/releases/download/${newest_tag}_ipa/kty-${expected_filename}.zip"
+        cell="$cell [$display_filename]($dl_url) </br>"
 
         row="$row | $cell"
     done
@@ -106,11 +128,11 @@ cat ipa-table.md >> downloads.md
 rm ipa-table.md
 
 third_text="## Extra Dictionaries / Glossaries
-These dictionaries are made from the "Translations" section in a Wiktionary entry. The entries are shorter and there is fewer of them compared to the main dictionaries, but they are available in some unique language pairs.
+These dictionaries are made from the \"Translations\" section in a Wiktionary entry. The entries are shorter and there is fewer of them compared to the main dictionaries, but they are available in some unique language pairs.
 
 ⚠️ This table is orientated opposite to the main dictionaries, with the source language in the columns and the target language in the rows.
 "
-    
+
 {
 echo "$third_text"
 } >> downloads.md
@@ -122,7 +144,7 @@ for target_lang in "${languages[@]}"; do
     target_iso=$(echo "${target_lang}" | jq -r '.iso')
     target_language_name=$(echo "${target_lang}" | jq -r '.language')
     flag=$(echo "${target_lang}" | jq -r '.flag')
-        
+
     row="| $flag </br> $target_language_name ($target_iso)"
 
     for column in "${columns[@]}"; do
@@ -130,7 +152,9 @@ for target_lang in "${languages[@]}"; do
         if [ "$column" != "$target_iso" ]; then
             display_filename="${column}"-"${target_iso}"
             expected_filename="${display_filename}-gloss"
-            cell="$cell [$display_filename](https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/latest/download/kty-$expected_filename.zip) </br>"
+
+            dl_url="$repo_url/releases/download/${newest_tag}_gloss/kty-${expected_filename}.zip"
+            cell="$cell [$display_filename]($dl_url) </br>"
         fi
         row="$row | $cell"
     done

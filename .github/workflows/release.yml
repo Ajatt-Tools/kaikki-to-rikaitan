@@ -42,9 +42,11 @@ jobs:
           # See https://docs.github.com/en/get-started/using-git/dealing-with-special-characters-in-branch-and-tag-names
           TAG=v$(  date '+%y.%m.%d'  )
           CALVER=$(  date '+%y.%m.%d'  )
+
           echo "$TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "calver=$CALVER" >> $GITHUB_OUTPUT
+
           git tag -a "$TAG" -m "Published version $TAG" ${GITHUB_SHA}
           git push origin "$TAG" || true
 
@@ -123,6 +125,9 @@ jobs:
           generate_release_notes: true
           files: |
             data/language/**/kty-?*-?*.zip
+            # exclude ipa and gloss by preventing matching suffixes:
+            !data/language/**/kty-?*-?*-ipa.zip
+            !data/language/**/kty-?*-?*-gloss.zip
 
       - name: Upload ipa dictionary files
         uses: softprops/action-gh-release@v2.2.1
@@ -184,7 +189,7 @@ jobs:
               if [[ ! "$edition_languages" == *"$target_iso"* ]]; then
                   continue
               fi
-              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{ needs.prepare.outputs.tag }}/kty-${source_iso}-${target_iso}-ipa.zip"
+              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{ needs.prepare.outputs.tag }}_ipa/$filename"
               curl -s -O -f -L "$url" || echo "Skipping $url due to an error."
             done
           done
@@ -203,7 +208,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: |
-            data/language/**/*.zip
+            data/language/**/kty-?*-?*-ipa.zip
 
       #- name: Upload index.json files
       #  uses: softprops/action-gh-release@v2.2.1

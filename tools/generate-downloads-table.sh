@@ -80,8 +80,8 @@ for source_lang in "${languages[@]}"; do
 done
 
 
-cat main-table.md >> downloads.md
-rm main-table.md
+cat -- main-table.md >> downloads.md
+rm  -- main-table.md
 
 second_text="## IPA Dictionaries
 These dictionaries contain the International Phonetic Alphabet (IPA) transcriptions for the headwords. There are two types of IPA dictionaries:
@@ -124,8 +124,8 @@ for source_lang in "${languages[@]}"; do
     echo "$row" >> ipa-table.md
 done
 
-cat ipa-table.md >> downloads.md
-rm ipa-table.md
+cat -- ipa-table.md >> downloads.md
+rm  -- ipa-table.md
 
 third_text="## Extra Dictionaries / Glossaries
 These dictionaries are made from the \"Translations\" section in a Wiktionary entry. The entries are shorter and there is fewer of them compared to the main dictionaries, but they are available in some unique language pairs.
@@ -161,5 +161,5 @@ for target_lang in "${languages[@]}"; do
     echo "$row" >> glossary-table.md
 done
 
-cat glossary-table.md >> downloads.md
-rm glossary-table.md
+cat -- glossary-table.md >> downloads.md
+rm  -- glossary-table.md

@@ -15,6 +15,7 @@
 !data/test/tidy/*.json
 !data/test/dict/**/*.json
 !data/test/ipa/**/*.json
+!data/recommended-dictionaries.json
 
 *.zip
 *.gz

@@ -63,6 +63,11 @@ jobs:
         run: |
           ./tools/generate-downloads-table.sh ${{ steps.tag.outputs.tag }}
 
+      - name: Update recommended dictionaries
+        id: update_dict_links
+        run: |
+          ./tools/update_recommended_dicts_links.sh ${{ steps.tag.outputs.tag }}
+
       - name: Create GitHub release (single)
         id: create_release
         uses: softprops/action-gh-release@v2.2.1

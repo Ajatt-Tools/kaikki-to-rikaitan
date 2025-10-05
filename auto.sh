@@ -202,6 +202,10 @@ for edition_lang in "${languages[@]}"; do
   if [[ "$requested_edition" != "?" ]]; then
     if [[ "$requested_edition" == "iso="* ]]; then
       requested_iso=${requested_edition#iso=}
+      if [[ -z $requested_iso ]]; then
+        echo "ERROR: empty ISO"
+        exit 1
+      fi
       if [[ $requested_iso != "$edition_iso" ]]; then
         continue
       fi

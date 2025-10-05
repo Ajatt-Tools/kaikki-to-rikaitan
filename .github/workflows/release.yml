@@ -220,13 +220,13 @@ jobs:
       - name: Upload merged IPA dictionary files
         uses: softprops/action-gh-release@v2.2.1
         with:
-          name: ${{ needs.prepare.outputs.calver }} ipa
-          tag_name: ${{ needs.prepare.outputs.tag }}_ipa
+          name: ${{ needs.prepare.outputs.calver }} - ${{ matrix.edition_language }} Edition
+          tag_name: ${{ needs.prepare.outputs.tag }}_${{ steps.find_iso_code.outputs.edition_iso }}
           prerelease: true
           generate_release_notes: true
           files: |
             # E.g. kty-sq-ipa.zip
-            data/language/**/kty-?*-ipa.zip
+            data/language/**/kty-${{ steps.find_iso_code.outputs.edition_iso }}-ipa.zip
 
       #- name: Upload index.json files
       #  uses: softprops/action-gh-release@v2.2.1

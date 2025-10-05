@@ -16,7 +16,7 @@ for (const {iso: sourceIso, language: sourceLanguage} of languages){
     for (const {iso: targetIso} of languages){
         const tidyLemmas = `data/test/tidy/${sourceIso}-${targetIso}-lemmas.json`;
         const tidyForms = `data/test/tidy/${sourceIso}-${targetIso}-forms-0.json`;
-        
+
         if(!existsSync(tidyLemmas) || !existsSync(tidyForms)){
             continue;
         }
@@ -25,17 +25,18 @@ for (const {iso: sourceIso, language: sourceLanguage} of languages){
             "node 4-make-rikaitan.js",
             {
                 env:{
-                    ...process.env, 
+                    ...process.env,
                     source_iso: sourceIso,
                     source_language: sourceLanguage,
                     target_iso: targetIso,
                     DICT_NAME: 'test',
+                    TAG_NAME: 'invalid',
                     tidy_folder: `./data/test/tidy`,
                     temp_folder: `./data/test/temp`
                 }
             }
         );
-        
+
         const testTermTags = JSON.parse(readFileSync(`data/test/temp/dict/tag_bank_1.json`, 'utf8'));
         const testTerms = JSON.parse(readFileSync(`data/test/temp/dict/term_bank_1.json`, 'utf8'));
         const testIpaTags = JSON.parse(readFileSync(`data/test/temp/ipa/tag_bank_1.json`, 'utf8'));

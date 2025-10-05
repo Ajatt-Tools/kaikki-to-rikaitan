@@ -54,6 +54,7 @@ echo "$divider" >> main-table.md
 newest_tag=${1:-$(  git describe --tags --abbrev=0  )}
 newest_tag=${newest_tag%_ipa}
 newest_tag=${newest_tag%_gloss}
+newest_tag=${newest_tag%_*}
 readonly newest_tag
 echo "newest tag: $newest_tag"
 if [[ -z $newest_tag ]]; then
@@ -71,7 +72,7 @@ for source_lang in "${languages[@]}"; do
         cell=""
         expected_filename="${source_iso}-${column}"
 
-        dl_url="$repo_url/releases/download/${newest_tag}/kty-${expected_filename}.zip"
+        dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
         cell="$cell [$expected_filename]($dl_url) </br>"
 
         row="$row | $cell"
@@ -116,7 +117,7 @@ for source_lang in "${languages[@]}"; do
             display_filename="${source_iso} merged"
         fi
 
-        dl_url="$repo_url/releases/download/${newest_tag}_ipa/kty-${expected_filename}.zip"
+        dl_url="$repo_url/releases/download/${newest_tag}_${source_iso}/kty-${expected_filename}.zip"
         cell="$cell [$display_filename]($dl_url) </br>"
 
         row="$row | $cell"
@@ -150,10 +151,10 @@ for target_lang in "${languages[@]}"; do
     for column in "${columns[@]}"; do
         cell=""
         if [ "$column" != "$target_iso" ]; then
-            display_filename="${column}"-"${target_iso}"
+            display_filename="${column}-${target_iso}"
             expected_filename="${display_filename}-gloss"
 
-            dl_url="$repo_url/releases/download/${newest_tag}_gloss/kty-${expected_filename}.zip"
+            dl_url="$repo_url/releases/download/${newest_tag}_${target_iso}/kty-${expected_filename}.zip"
             cell="$cell [$display_filename]($dl_url) </br>"
         fi
         row="$row | $cell"

@@ -11,12 +11,13 @@ get_newest_tag() {
 	newest_tag=$(git describe --tags --abbrev=0)
 	newest_tag=${newest_tag%_ipa}
 	newest_tag=${newest_tag%_gloss}
+	newest_tag=${newest_tag%_*}
 	echo "$newest_tag"
 }
 
 replace_download_links() {
-	local tag="$1"
-	local json_file=data/${source_url##*/}
+	local -r tag="$1"
+	local -r json_file=data/${source_url##*/}
 
 	# Use jq to process the JSON and replace download links
 	jq --indent 4 --arg tag "$tag" '
@@ -29,14 +30,14 @@ replace_download_links() {
 	          sub("/kaikki-to-rikaitan/releases/latest/download/";
 		      "/kaikki-to-rikaitan/releases/download/\($tag)_ipa/") |
 	          sub("/kaikki-to-rikaitan/releases/download/[A-Za-z0-9._-]+/";
-		      "/kaikki-to-rikaitan/releases/download/\($tag)_ipa/")
+		      "/kaikki-to-rikaitan/releases/download/\($tag)_en/")
 	        )
 	      else
 	        .downloadUrl |= (
 	          sub("/kaikki-to-rikaitan/releases/latest/download/";
 		      "/kaikki-to-rikaitan/releases/download/\($tag)/") |
 	          sub("/kaikki-to-rikaitan/releases/download/[A-Za-z0-9._-]+/";
-		      "/kaikki-to-rikaitan/releases/download/\($tag)/")
+		      "/kaikki-to-rikaitan/releases/download/\($tag)_en/")
 	        )
 	      end
 	    else

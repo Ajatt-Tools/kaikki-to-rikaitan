@@ -197,19 +197,8 @@ for edition_lang in "${languages[@]}"; do
     continue
   fi
 
-  if [[ "$requested_edition" != "?" ]]; then
-    if [[ "$requested_edition" == "iso="* ]]; then
-      requested_iso=${requested_edition#iso=}
-      if [[ -z $requested_iso ]]; then
-        echo "ERROR: empty ISO"
-        exit 1
-      fi
-      if [[ $requested_iso != "$edition_iso" ]]; then
-        continue
-      fi
-    elif [ "$edition_name" != "$requested_edition" ]; then
-      continue
-    fi
+  if [[ "$edition_name" != "$requested_edition" ]] && [[ "$requested_edition" != "?" ]]; then
+    continue
   fi
 
   downloaded_edition_extract=false

@@ -18,7 +18,7 @@ declare global {
         pos?: string;
         etymology_number?: number;
         etymology_text?: string;
-        sounds?: Sound[];  
+        sounds?: Sound[];
         forms?: FormInfo[];
         senses?: KaikkiSense[];
         tags?: string;
@@ -66,7 +66,7 @@ declare global {
     }
 
     type Glosses = string | string[];
-    
+
     type FormOf = {
         word?: string;
     }
@@ -79,7 +79,7 @@ declare global {
         get(key: '_tags'): string[] | undefined;
         set(key: '_tags', value: string[]): GlossBranch;
     } ;
-      
+
     type TidySense = Omit<KaikkiSense, 'tags'> & {
         tags: string[];
         glossesArray: string[];
@@ -114,7 +114,7 @@ declare global {
         tags: string[],
         examples: Example[],
     }
-    
+
     type Lemma = string;
     type Form = string;
     type PoS = string;
@@ -132,6 +132,7 @@ declare global {
         target_iso: string,
         DEBUG_WORD?: string,
         DICT_NAME: string,
+        TAG_NAME: string,
         tidy_folder: string,
         temp_folder: string,
     }

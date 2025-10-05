@@ -125,8 +125,8 @@ glossary_only=false
 
 flags=('d' 't' 'y' 'F' 'k' 'g')
 for flag in "${flags[@]}"; do
-  case "$4" in 
-    *"$flag"*) 
+  case "$4" in
+    *"$flag"*)
       case "$flag" in
         'd') redownload=true ;;
         't') force_tidy=true ;;
@@ -182,31 +182,40 @@ supported_editions="${supported_editions_array[*]}"
 
 #Iterate over every edition language
 for edition_lang in "${languages[@]}"; do
-  export edition_iso=$(echo "${edition_lang}" | jq -r '.iso')
+  edition_iso=$(echo "${edition_lang}" | jq -r '.iso')
   edition_name=$(echo "${edition_lang}" | jq -r '.language')
+  export edition_iso edition_name
 
   if [[ ! "$supported_editions" == *"$edition_iso"* ]]; then
     continue
   fi
 
-  if [ "$edition_name" != "$requested_edition" ] && [ "$requested_edition" != "?" ]; then
-    continue
+  if [[ "$requested_edition" != "?" ]]; then
+    if [[ "$requested_edition" == "iso="* ]]; then
+      requested_iso=${requested_edition#iso=}
+      if [[ $requested_iso != "$edition_iso" ]]; then
+        continue
+      fi
+    elif [ "$edition_name" != "$requested_edition" ]; then
+      continue
+    fi
   fi
 
   downloaded_edition_extract=false
 
   #Iterate over every language
   for some_lang in "${languages[@]}"; do
-    export language_iso=$(echo "${some_lang}" | jq -r '.iso')
+    language_iso=$(echo "${some_lang}" | jq -r '.iso')
+    export language_iso
     language=$(echo "${some_lang}" | jq -r '.language')
-    
+
     convert_main=true
     convert_glossary=false
 
     if [ "$edition_name" != "$requested_target" ] && [ "$requested_target" != "?" ]; then
       convert_main=false
     fi
-    
+
     if [ "$language" != "$requested_source" ] && [ "$requested_source" != "?" ]; then
       convert_main=false
     fi
@@ -243,7 +252,7 @@ for edition_lang in "${languages[@]}"; do
       if [ ! -f "$filepath" ] || [ "$redownload" = true ]; then
         url="https://kaikki.org/dictionary/$download_language/$filename"
         echo "Downloading $filename from $url"
-        wget -nv "$url" -O "$filepath" 
+        wget -nv "$url" -O "$filepath"
       else
         echo "Kaikki dict already exists. Skipping download."
       fi
@@ -254,7 +263,7 @@ for edition_lang in "${languages[@]}"; do
       if [ ! -f "$edition_extract_path" ] || [ "$redownload" = true ] && [ "$downloaded_edition_extract" = false ]; then
         url="https://kaikki.org/dictionary/downloads/$edition_iso/$edition_extract.gz"
         echo "Downloading $edition_extract from $url"
-        wget -nv "$url" -O "$edition_extract_path".gz 
+        wget -nv "$url" -O "$edition_extract_path".gz
         echo "Extracting $edition_extract"
         gunzip -f "$edition_extract_path".gz
         downloaded_edition_extract=true
@@ -282,7 +291,7 @@ for edition_lang in "${languages[@]}"; do
 
     if [ "$convert_glossary" = true ]; then
       for gloss_lang in "${languages[@]}"; do
-        
+
         export gloss_iso=$(echo "${gloss_lang}" | jq -r '.iso')
         gloss_lang_name=$(echo "${gloss_lang}" | jq -r '.language')
 

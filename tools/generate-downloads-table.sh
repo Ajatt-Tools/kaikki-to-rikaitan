@@ -117,7 +117,7 @@ for source_lang in "${languages[@]}"; do
             display_filename="${source_iso} merged"
         fi
 
-        dl_url="$repo_url/releases/download/${newest_tag}_${source_iso}/kty-${expected_filename}.zip"
+        dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
         cell="$cell [$display_filename]($dl_url) </br>"
 
         row="$row | $cell"

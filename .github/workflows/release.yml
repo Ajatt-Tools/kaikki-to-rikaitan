@@ -211,6 +211,8 @@ jobs:
 
       - name: Run merge-ipa
         run: node merge-ipa.js
+        env:
+          TAG_NAME: ${{ needs.prepare.outputs.tag }}_${{ steps.find_iso_code.outputs.edition_iso }}
 
       - name: Delete downloaded IPA files
         run: rm -f *.zip

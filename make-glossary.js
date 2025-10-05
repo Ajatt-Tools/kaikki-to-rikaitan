@@ -4,11 +4,17 @@ const { readdirSync, unlinkSync, writeFileSync } = require('fs');
 const { isUint16Array } = require('util/types');
 
 const {
+    TAG_NAME,
     source_iso: sourceIso,
     target_iso: targetIso,
     kaikki_file: kaikkiFile,
     temp_folder: writeFolder,
 } = process.env;
+
+if (!TAG_NAME) {
+    console.log('No tag name.');
+    process.exit(1)
+}
 
 function processTranslations(translations, glosses, senses, sense){
     if (!translations) return;
@@ -43,7 +49,7 @@ const partsOfSpeech = loadJsonArray(`data/language/target-language-tags/en/parts
 const skippedPartsOfSpeech = {};
 
 const url = 'https://github.com/Ajatt-Tools/kaikki-to-rikaitan';
-const latestReleaseUrl = `${url}/releases/latest/download/`;
+const latestReleaseUrl = `${url}/releases/download/${TAG_NAME}/`;
 const title = `kty-${sourceIso}-${targetIso}-gloss`;
 const indexJson = {
     title: title,

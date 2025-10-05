@@ -8,6 +8,15 @@ const now = new Date();
 const tempFolder = 'data/temp/ipa';
 mkdirSync(tempFolder, { recursive: true });
 
+const {
+    TAG_NAME
+} = /** @type {MakeRikaitanEnv} */(process.env);
+
+if (!TAG_NAME) {
+    console.log('No tag name.');
+    process.exit(1)
+}
+
 async function main(){
     const languages = JSON.parse(readFileSync('languages.json', 'utf8'));
 
@@ -82,7 +91,7 @@ async function main(){
 
         const url = 'https://github.com/Ajatt-Tools/kaikki-to-rikaitan';
         const title = `kty-${sourceIso}-ipa`;
-        const latestReleaseUrl = `${url}/releases/latest/download/${title}`;
+        const latestReleaseUrl = `${url}/releases/download/${TAG_NAME}/${title}`;
         const globalIndex = {
             "format": 3,
             "revision": date.format(now, 'YYYY.MM.DD'),

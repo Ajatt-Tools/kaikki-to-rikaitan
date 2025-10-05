@@ -11,10 +11,16 @@ const {
     DEBUG_WORD,
     DICT_NAME,
     tidy_folder: readFolder,
-    temp_folder: writeFolder
+    temp_folder: writeFolder,
+    TAG_NAME
 } = /** @type {MakeRikaitanEnv} */(process.env);
 
-const latestDownloadLink = 'https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/latest/download/';
+if (!TAG_NAME) {
+    console.log('No tag name.');
+    process.exit(1)
+}
+
+const latestDownloadLink = `https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${TAG_NAME}/`;
 
 const indexJson = {
     format: 3,

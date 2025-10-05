@@ -1,6 +1,12 @@
 #!/bin/bash
 # Example run: bash auto.sh Japanese '?' '?'
 
+if [[ -z $TAG_NAME ]]; then
+	echo "ERROR: NO tag name"
+	exit 1
+fi
+export TAG_NAME
+
 convertMainDict(){
   export target_iso="$edition_iso"
   export target_language="$edition_name"
@@ -38,6 +44,7 @@ convertMainDict(){
       zip -qj "$ipa_file" "$temp_ipa_folder/index.json" "$temp_ipa_folder/tag_bank_1.json" "$temp_ipa_folder"/term_meta_bank_*.json
     else
       echo "Error: Rikaitan generation script failed."
+      exit 1
     fi
   else
     echo "Rikaitan dict already exists. Skipping Rikaitan creation."

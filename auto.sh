@@ -71,10 +71,12 @@ convertMainDict(){
 }
 
 convertGlossary(){
-  export source_iso="$edition_iso"
-  export source_language="$edition_name"
-  export target_language="$gloss_lang_name"
-  export target_iso="$gloss_iso"
+  export source_language="$gloss_lang_name"
+  export source_iso="$gloss_iso"
+
+  export target_iso="$edition_iso"
+  export target_language="$edition_name"
+
   export temp_folder="data/temp"
 
   dict_title="${DICT_NAME}-$source_iso-$target_iso-gloss"

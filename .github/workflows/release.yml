@@ -194,19 +194,21 @@ jobs:
         run: |
           mapfile -t iso_array < <(printf '%s' '${{ needs.prepare.outputs.isos }}' | jq -r '.[]')
           edition_languages=$(printf '%s' '${{ needs.prepare.outputs.edition_languages }}' | jq -r 'join(" ")')
-          for source_iso in "${iso_array[@]}"; do
-            for target_iso in "${iso_array[@]}"; do
-              filename="kty-${source_iso}-${target_iso}-ipa.zip"
+          edition_iso="${{ steps.find_iso_code.outputs.edition_iso }}"
+
+          __dl() {
+              filename="kty-${1}-${2}-ipa.zip"
               if [ -f "$filename" ]; then
                   continue
               fi
 
-              if [[ ! "$edition_languages" == *"$target_iso"* ]]; then
-                  continue
-              fi
-              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{ needs.prepare.outputs.tag }}_ipa/$filename"
+              url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan/releases/download/${{ needs.prepare.outputs.tag }}_${2}/$filename"
               curl -s -O -f -L "$url" || echo "Skipping $url due to an error."
-            done
+          }
+
+          for source_iso in "${iso_array[@]}"; do
+            __dl "$source_iso" "$edition_iso"
+            __dl "$edition_iso" "$source_iso"
           done
 
       - name: Run merge-ipa

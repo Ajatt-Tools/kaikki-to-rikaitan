@@ -10,7 +10,7 @@ mkdirSync(tempFolder, { recursive: true });
 
 async function main(){
     const languages = JSON.parse(readFileSync('languages.json', 'utf8'));
-    
+
     for (const {iso: sourceIso} of languages){
         const globalIpa = {};
         let globalTags = [];
@@ -48,7 +48,7 @@ async function main(){
                     } else {
                         const existingIpas = globalIpa[term][2]['transcriptions']
                         const newIpas = local[2]['transcriptions']
-                                  
+
                         for (const newIpa of newIpas) {
                             const existingIpa = existingIpas.find(({ipa}) => ipa === newIpa.ipa);
                             if(!existingIpa){
@@ -68,18 +68,18 @@ async function main(){
                                         globalTags.push(fullTag);
                                     }
                                 }
-                            }   
+                            }
                         }
                     }
                 }
-            } 
+            }
         }
 
         const globalIpaLength = Object.keys(globalIpa).length;
         if(globalIpaLength) console.log("globalIpa", globalIpaLength);
         const globalTagsLength = globalTags.length;
         if(globalTagsLength) console.log("globalTags", globalTagsLength);
-        
+
         const url = 'https://github.com/Ajatt-Tools/kaikki-to-rikaitan';
         const title = `kty-${sourceIso}-ipa`;
         const latestReleaseUrl = `${url}/releases/latest/download/${title}`;
@@ -104,7 +104,7 @@ async function main(){
             writeFileSync(`${tempFolder}/index.json`, JSON.stringify(globalIndex, null, 4));
             writeInBatches(tempFolder, Object.values(globalIpa), 'term_meta_bank_', 500000);
             writeInBatches(tempFolder, globalTags, 'tag_bank_', 50000);
-            
+
             const outputFolder = `data/language/${sourceIso}/`;
             mkdirSync(outputFolder, { recursive: true });
             execSync(`zip -j ${outputFolder}/${title}.zip ${tempFolder}/*`);

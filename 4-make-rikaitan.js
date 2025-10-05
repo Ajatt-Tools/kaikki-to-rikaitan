@@ -1,7 +1,7 @@
 const path = require('path');
 const { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, unlinkSync } = require('fs');
-const { sortTags, writeInBatches, consoleOverwrite, 
-    mapJsonReviver, logProgress, loadJsonArray, 
+const { sortTags, writeInBatches, consoleOverwrite,
+    mapJsonReviver, logProgress, loadJsonArray,
     findPartOfSpeech, incrementCounter, currentDate } = require('./util/util');
 
 const {
@@ -61,8 +61,8 @@ const tagModifiers = [
 ]
 
 /**
- * @param {WhitelistedTag[]} tags 
- * @param {string} tag 
+ * @param {WhitelistedTag[]} tags
+ * @param {string} tag
  * @returns {null|import('./types').TagBank.TagInformation}
  */
 function findTag(tags, tag) {
@@ -78,7 +78,7 @@ function findTag(tags, tag) {
     if(!fullTag) return null;
 
     const result = [...fullTag];
-    
+
     if(Array.isArray(result[3])){
         result[3] = result[3][0]; // this makes it fit the rikaitan tag format
     }
@@ -87,7 +87,7 @@ function findTag(tags, tag) {
 }
 
 /**
- * @param {string} tag 
+ * @param {string} tag
  * @returns {null|import('./types').TagBank.TagInformation}
  */
 function findModifiedTag(tag){
@@ -113,7 +113,7 @@ function findModifiedTag(tag){
 
 /**
  * @param {import('./types').TermBank.StructuredContentNode[]} structuredContent
- * @param {string[]} tags 
+ * @param {string[]} tags
  */
 function addStructuredTags(structuredContent, tags){
     if(!tags.length) return;
@@ -144,14 +144,14 @@ function addStructuredTags(structuredContent, tags){
 
 /**
  * @param {import('./types').TermBank.StructuredContentNode[]} structuredContent
- * @param {StandardizedExample[]} examples 
+ * @param {StandardizedExample[]} examples
  */
 function addStructuredExamples(structuredContent, examples) {
     if (examples.length === 0) return;
 
     /** @type {import('./types').TermBank.StructuredContent} */
-    const structuredExamplesContent = examples.map(({text, translation}) => { 
-        
+    const structuredExamplesContent = examples.map(({text, translation}) => {
+
         /** @type {import('./types').TermBank.StructuredContentNode[]} */
          const structuredExampleContent = [{
             "tag": "div",
@@ -182,7 +182,7 @@ function addStructuredExamples(structuredContent, examples) {
                     "content": "example-sentence"
                 },
                 "content":structuredExampleContent
-            }                          
+            }
         }
     })
 
@@ -238,7 +238,7 @@ function buildDetailsEntry(type, content) {
 }
 
 /**
- * @param {LemmaInfo} info 
+ * @param {LemmaInfo} info
  * @returns {import('./types').TermBank.StructuredContent}
  */
 function getStructuredPreamble(info) {
@@ -276,7 +276,7 @@ function getStructuredPreamble(info) {
 }
 
 /**string
- * @param {string} backlinkWord 
+ * @param {string} backlinkWord
  * @returns {import('./types').TermBank.StructuredContent}
  */
 function getStructuredBacklink(backlinkWord) {
@@ -300,7 +300,7 @@ function handleLevel(glossBranch, parentTags, pos, depth) {
     /** @type {import('./types').TermBank.StructuredContent[]} */
     const nestDefs = [];
 
-    for (const [def, children] of glossBranch) {                      
+    for (const [def, children] of glossBranch) {
         let processedDef = def;
 
         const levelTags = children.get('_tags') || [];
@@ -313,7 +313,7 @@ function handleLevel(glossBranch, parentTags, pos, depth) {
 
         /** @type {import('./types').TermBank.StructuredContent} */
         const levelContent = [processedDef]
- 
+
         const examples = children.get('_examples') || [];
         children.delete('_examples');
 
@@ -386,11 +386,11 @@ let lastTermBankIndex = 0;
     consoleOverwrite('4-make-rikaitan.js: processing lemmas...');
     for (const [lemma, readings] of Object.entries(lemmaDict)) {
         for (const [reading, partsOfSpeechOfWord] of Object.entries(readings)) {
-            
+
             const normalizedLemma = normalizeOrthography(lemma);
-            
+
             /**
-             * @param {any} word 
+             * @param {any} word
              */
             function debug(word) {
                 if (normalizedLemma === DEBUG_WORD) {
@@ -446,12 +446,12 @@ let lastTermBankIndex = 0;
                         const syntheticBranch = new Map();
                         syntheticBranch.set(gloss, branches);
                         const glosses = handleNest(syntheticBranch, commonTags, pos);
-                        
+
                         if(glosses && glosses.length) {
                             glossContent.push(...glosses);
                         };
                     }
-                    
+
                     if (!glossContent.length) {
                         continue;
                     }
@@ -579,7 +579,7 @@ let lastTermBankIndex = 0;
         for (const [lemma, forms] of formsPart.entries()) {
             formsMap.set(lemma, forms);
         }
-    
+
         for(const [lemma, forms] of formsMap.entries()){
             logProgress('Processing forms...', formCounter, undefined, 100);
             formCounter++;
@@ -600,7 +600,7 @@ let lastTermBankIndex = 0;
                         //     gloss = gloss
                         //         .replace(/^\s*\[\d\]\s*/g, '')
                         // }
-                        
+
                         let hypotheses = [[gloss]];
 
                         // TODO: generalize this
@@ -611,20 +611,20 @@ let lastTermBankIndex = 0;
                         }
 
                         if(target_iso === 'fr'){
-                            hypotheses = hypotheses.map((hypothesis) => 
+                            hypotheses = hypotheses.map((hypothesis) =>
                                 hypothesis.filter(inflection => !inflection.trim().startsWith('Voir la conjugaison'))
                             );
                         }
 
                         hypotheses = hypotheses
-                            .map((hypothesis) => 
+                            .map((hypothesis) =>
                                 hypothesis
                                     .map((inflection) => inflection.trim())
                                     .filter(Boolean)
                             )
                             .filter(hypothesis => hypothesis.length)
-                            .map((hypothesis) => 
-                                hypothesis.map((inflection) => 
+                            .map((hypothesis) =>
+                                hypothesis.map((inflection) =>
                                     inflection.replace(/\u00A0/g, ' ')
                                 )
                             );
@@ -699,9 +699,9 @@ writeFileSync(`data/language/${source_iso}/${target_iso}/skippedPartsOfSpeech.js
 console.log('4-make-rikaitan.js: Done!')
 
 /**
- * @param {string} gloss 
- * @param {string[]} senseTags 
- * @param {string} pos 
+ * @param {string} gloss
+ * @param {string[]} senseTags
+ * @param {string} pos
  * @returns {{gloss: string, recognizedTags: string[]}}
  */
 function processGlossTags(gloss, senseTags, pos) {
@@ -725,7 +725,7 @@ function processGlossTags(gloss, senseTags, pos) {
 }
 
 /**
- * @param {CondensedFormEntries} ymtFormData 
+ * @param {CondensedFormEntries} ymtFormData
  * @returns {CondensedFormEntries}
  */
 function writeYmtFormData(ymtFormData) {
@@ -750,10 +750,10 @@ function writeYmtFormData(ymtFormData) {
 }
 
 /**
- * @param {string} folder 
- * @param {import('./types').TermBank.DictionaryTermBankV3 | import('./types').TermBankMeta.DictionaryTermMetaBankV3} data 
+ * @param {string} folder
+ * @param {import('./types').TermBank.DictionaryTermBankV3 | import('./types').TermBankMeta.DictionaryTermMetaBankV3} data
  * @param {number} bankIndex
- * @returns 
+ * @returns
  */
 function writeBanks(folder, data, bankIndex = 0) {
     if(folder === 'form') folder = 'dict';
@@ -770,15 +770,15 @@ function writeBanks(folder, data, bankIndex = 0) {
 }
 
 /**
- * @param {'dict'|'ipa'} folder 
+ * @param {'dict'|'ipa'} folder
  */
 function writeTags(folder) {
     writeFileSync(`${writeFolder}/${folder}/tag_bank_1.json`, JSON.stringify(Object.values(ymtTags[folder])));
 }
 
 /**
- * @param {'dict'|'ipa'} folder 
- * @param {string} styles 
+ * @param {'dict'|'ipa'} folder
+ * @param {string} styles
  */
 function writeStyles(folder, styles){
     if(folder === 'dict') {
@@ -789,7 +789,7 @@ function writeStyles(folder, styles){
 }
 
 /**
- * @param {'dict'|'ipa'} folder 
+ * @param {'dict'|'ipa'} folder
  * @returns {string}
  */
 function getTagStyles(folder){
@@ -804,7 +804,7 @@ function getTagStyles(folder){
 }
 
 /**
- * @param {'dict'|'ipa'} folder 
+ * @param {'dict'|'ipa'} folder
  */
 function writeIndex(folder) {
     const title = `${DICT_NAME}-${source_iso}-${target_iso}` + (folder === 'dict' ? '' : '-ipa');
@@ -814,14 +814,14 @@ function writeIndex(folder) {
         isUpdatable: true,
         indexUrl: `${latestDownloadLink}${title}-index.json`,
         downloadUrl: `${latestDownloadLink}${title}.zip`,
-    }));        
+    }));
 }
 
 /**
- * @param {string[]} senseTags 
- * @param {string[]} parenthesesTags 
- * @param {string} pos 
- * @returns 
+ * @param {string[]} senseTags
+ * @param {string[]} parenthesesTags
+ * @param {string} pos
+ * @returns
  */
 function processTags(senseTags, parenthesesTags, pos) {
     /** @type {string[]} */
@@ -852,7 +852,7 @@ function processTags(senseTags, parenthesesTags, pos) {
             }
         })
         .filter(Boolean);
-    
+
     const leftoverTags = unrecognizedTags.length ? `(${unrecognizedTags.join(', ')}) ` : '';
     recognizedTags = [...new Set(recognizedTags)];
 
@@ -860,15 +860,15 @@ function processTags(senseTags, parenthesesTags, pos) {
 }
 
 /**
- * @param {*} obj 
- * @returns 
+ * @param {*} obj
+ * @returns
  */
 function sortBreakdown(obj){
     return Object.fromEntries(Object.entries(obj).sort((a, b) => b[1] - a[1]));
 }
 
 /**
- * @param {string} term 
+ * @param {string} term
  * @returns {string}
  */
 function normalizeOrthography(term) {
@@ -893,9 +893,9 @@ function normalizeOrthography(term) {
                 '\u0656', // Subscript Alef
                 '\u0670', // Dagger Alef
             ];
-            
+
             const diacriticsRegex = new RegExp(`[${optionalDiacritics.join('')}]`, 'g');
-            
+
             return term.replace(diacriticsRegex, '')
         case 'la':
         case 'ang':
@@ -918,7 +918,7 @@ function normalizeOrthography(term) {
 }
 
 /**
- * @param {number} n 
+ * @param {number} n
  * @returns {string}
  */
 function getLocaleExamplesString(n) {

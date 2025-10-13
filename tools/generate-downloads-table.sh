@@ -112,12 +112,14 @@ for source_lang in "${languages[@]}"; do
         cell=""
         display_filename="${source_iso}-${column}"
         expected_filename="${display_filename}-ipa"
+        release_tag="${newest_tag}_${column}"
         if [ "$column" = "merged" ]; then
             expected_filename="${source_iso}-ipa"
             display_filename="${source_iso} merged"
+            release_tag="${newest_tag}_${source_iso}"
         fi
 
-        dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
+        dl_url="$repo_url/releases/download/${release_tag}/kty-${expected_filename}.zip"
         cell="$cell [$display_filename]($dl_url) </br>"
 
         row="$row | $cell"

@@ -12,7 +12,7 @@ Converts wiktionary data from https://kaikki.org/ to rikaitan-compatible diction
 
 2. If your language is not in `languages.json`, add it.
 
-3. Run `./auto.sh ? German English`.
+3. Run `./auto.sh '?' German English`. (Args: `Edition` `Source` `Target`. In this case: German words and English definitions).
 
 4. Dictionaries should be in `data/language/de/en`.
 

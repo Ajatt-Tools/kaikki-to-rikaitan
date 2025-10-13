@@ -226,8 +226,8 @@ jobs:
           tag_name: ${{ needs.prepare.outputs.tag }}_${{ steps.find_iso_code.outputs.target_iso }}
           prerelease: true
           generate_release_notes: true
+          # E.g. kty-sq-ipa.zip
           files: |
-            # E.g. kty-sq-ipa.zip
             data/language/**/kty-${{ steps.find_iso_code.outputs.target_iso }}-ipa.zip
 
       #- name: Upload index.json files

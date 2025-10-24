@@ -126,14 +126,14 @@ jobs:
         run: |
           target_iso=$(  jq --arg query "${{ matrix.target_language }}" -r '.[] | select(.language == $query) | .iso' -- languages.json  )
           if [[ -z $target_iso ]]; then
-            echo "ERROR: can't find edition ISO" >&2
+            echo "ERROR: can't find target ISO" >&2
             exit 1
           fi
-          echo "Edition ISO $target_iso"
+          echo "Target ISO $target_iso"
           echo "target_iso=$target_iso" >> "$GITHUB_OUTPUT"
 
       - name: Run auto.sh script
-        # Matrix edition is a full name (not ISO), e.g. Russian
+        # Matrix target language is a full name (not ISO), e.g. Russian
         run: ./auto.sh "?" "?" "${{ matrix.target_language }}"
         env:
           TAG_NAME: ${{ needs.prepare.outputs.tag }}_${{ steps.find_iso_code.outputs.target_iso }}
@@ -222,7 +222,7 @@ jobs:
       - name: Upload merged IPA dictionary files
         uses: softprops/action-gh-release@v2.2.1
         with:
-          name: ${{ needs.prepare.outputs.calver }} - ${{ matrix.target_language }} Edition
+          name: ${{ needs.prepare.outputs.calver }} - ${{ matrix.target_language }} Target
           tag_name: ${{ needs.prepare.outputs.tag }}_${{ steps.find_iso_code.outputs.target_iso }}
           prerelease: true
           generate_release_notes: true

@@ -10,6 +10,7 @@ permissions:
 
 env:
   # Docs: https://yandex.cloud/ru/docs/storage/tools/aws-sdk-js
+  # Note: these are repository secrets, no environment secrets.
   R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }} # This is "service account": https://console.yandex.cloud/folders/<folder>/iam/service-accounts
   R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }} # key id
   R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }} # secret

@@ -9,10 +9,11 @@ permissions:
   pull-requests: write
 
 env:
-  R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-  R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+  # Docs: https://yandex.cloud/ru/docs/storage/tools/aws-sdk-js
+  R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }} # This is "service account": https://console.yandex.cloud/folders/<folder>/iam/service-accounts
+  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }} # key id
+  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }} # secret
+  R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }} # https://console.yandex.cloud/folders/<folder>/storage/buckets
   R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
   R2_REGION: ${{ secrets.R2_REGION }}
 

@@ -16,6 +16,7 @@ env:
   R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }} # https://console.yandex.cloud/folders/<folder>/storage/buckets
   R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
   R2_REGION: ${{ secrets.R2_REGION }}
+  USE_AWS: true
 
 jobs:
   prepare:
@@ -27,7 +28,7 @@ jobs:
       calver: ${{ steps.tag.outputs.calver }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -49,13 +50,15 @@ jobs:
         id: tag
         run: |
           # See https://docs.github.com/en/get-started/using-git/dealing-with-special-characters-in-branch-and-tag-names
-          TAG=v$(date -Iseconds | sed 's/[T:\+]/-/g')
-          CALVER=$(date +'%y.%m.%d.%H')
+          TAG=v$(  date '+%y.%m.%d'  )
+          CALVER=$(  date '+%y.%m.%d'  )
+
           echo "$TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "calver=$CALVER" >> $GITHUB_OUTPUT
-          git tag -a $TAG -m "Published version $TAG" ${GITHUB_SHA}
-          git push origin $TAG
+
+          git tag -a "$TAG" -m "Published version $TAG" ${GITHUB_SHA}
+          git push origin "$TAG" || true
 
       - name: Load Languages
         id: load-languages
@@ -68,7 +71,7 @@ jobs:
       - name: Generate markdown table
         id: generate_markdown
         run: |
-          ./tools/generate-downloads-table.sh
+          ./tools/generate-downloads-table.sh "${{ steps.tag.outputs.tag }}"
 
       - name: Create pull request if necessary
         uses: peter-evans/create-pull-request@v4

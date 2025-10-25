@@ -1,6 +1,16 @@
 #!/bin/bash
 
 readonly repo_url="https://github.com/Ajatt-Tools/kaikki-to-rikaitan"
+readonly aws_bucket_url="https://storage.yandexcloud.net/kaikki-rikaitan-dicts"
+
+# switch between github releases and aws via the env var
+readonly USE_AWS="${USE_AWS:-false}"
+
+if "$USE_AWS"; then
+	readonly out_file=downloads_aws.md
+else
+	readonly out_file=downloads.md
+fi
 
 readonly first_text="# Downloads
 
@@ -21,7 +31,7 @@ This table contains the main dictionaries:
 
 {
   echo "$first_text"
-} > downloads.md
+} > "$out_file"
 
 
 languages=()
@@ -61,6 +71,7 @@ if [[ -z $newest_tag ]]; then
 	exit 1
 fi
 
+
 for source_lang in "${languages[@]}"; do
     source_iso=$(echo "${source_lang}" | jq -r '.iso')
     source_language_name=$(echo "${source_lang}" | jq -r '.language')
@@ -72,7 +83,12 @@ for source_lang in "${languages[@]}"; do
         cell=""
         expected_filename="${source_iso}-${column}"
 
-        dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
+	if "$USE_AWS"; then
+		# e.g. https://storage.yandexcloud.net/kaikki-rikaitan-dicts/releases/20.01.01/kty-afb-ja-ipa.zip
+		dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+	else
+		dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
+	fi
         cell="$cell [$expected_filename]($dl_url) </br>"
 
         row="$row | $cell"
@@ -81,7 +97,7 @@ for source_lang in "${languages[@]}"; do
 done
 
 
-cat -- main-table.md >> downloads.md
+cat -- main-table.md >> "$out_file"
 rm  -- main-table.md
 
 second_text="## IPA Dictionaries
@@ -92,7 +108,7 @@ These dictionaries contain the International Phonetic Alphabet (IPA) transcripti
 
 {
   echo "$second_text"
-} >> downloads.md
+} >> "$out_file"
 
 ipa_header="$header Merged |"
 ipa_divider="$divider---|"
@@ -119,7 +135,12 @@ for source_lang in "${languages[@]}"; do
             release_tag="${newest_tag}_${source_iso}"
         fi
 
-        dl_url="$repo_url/releases/download/${release_tag}/kty-${expected_filename}.zip"
+
+	if "$USE_AWS"; then
+		dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+	else
+		dl_url="$repo_url/releases/download/${release_tag}/kty-${expected_filename}.zip"
+	fi
         cell="$cell [$display_filename]($dl_url) </br>"
 
         row="$row | $cell"
@@ -127,7 +148,7 @@ for source_lang in "${languages[@]}"; do
     echo "$row" >> ipa-table.md
 done
 
-cat -- ipa-table.md >> downloads.md
+cat -- ipa-table.md >> "$out_file"
 rm  -- ipa-table.md
 
 third_text="## Extra Dictionaries / Glossaries
@@ -138,7 +159,7 @@ These dictionaries are made from the \"Translations\" section in a Wiktionary en
 
 {
 echo "$third_text"
-} >> downloads.md
+} >> "$out_file"
 
 echo "$header" > glossary-table.md
 echo "$divider" >> glossary-table.md
@@ -156,7 +177,12 @@ for target_lang in "${languages[@]}"; do
             display_filename="${column}-${target_iso}"
             expected_filename="${display_filename}-gloss"
 
-            dl_url="$repo_url/releases/download/${newest_tag}_${target_iso}/kty-${expected_filename}.zip"
+            if "$USE_AWS"; then
+		    dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+            else
+		    dl_url="$repo_url/releases/download/${newest_tag}_${target_iso}/kty-${expected_filename}.zip"
+            fi
+
             cell="$cell [$display_filename]($dl_url) </br>"
         fi
         row="$row | $cell"
@@ -164,5 +190,5 @@ for target_lang in "${languages[@]}"; do
     echo "$row" >> glossary-table.md
 done
 
-cat -- glossary-table.md >> downloads.md
+cat -- glossary-table.md >> "$out_file"
 rm  -- glossary-table.md

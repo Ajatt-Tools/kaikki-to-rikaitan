@@ -74,12 +74,15 @@ jobs:
         run: |
           ./tools/generate-downloads-table.sh "${{ steps.tag.outputs.tag }}"
 
+      # https://github.com/peter-evans/create-pull-request
       - name: Create pull request if necessary
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "Update downloads.md with list of .zip files"
-          body: "This PR updates the downloads.md file with a table listing all .zip files."
+          title: "Update downloads file with list of .zip files"
+          body: "This PR updates the downloads file with a table listing all .zip files."
+          sign-commits: true
+          delete-branch: true
 
   convert:
     needs: prepare

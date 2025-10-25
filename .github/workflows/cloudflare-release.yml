@@ -7,13 +7,14 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  
+
 env:
   R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
   R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
   R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
   R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
   R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+  R2_REGION: ${{ secrets.R2_REGION }}
 
 jobs:
   prepare:
@@ -62,7 +63,7 @@ jobs:
           echo "edition_languages=$edition_languages" >> $GITHUB_OUTPUT
           isos=$(jq -r '.[].iso' languages.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "isos=$isos" >> $GITHUB_OUTPUT
-      
+
       - name: Generate markdown table
         id: generate_markdown
         run: |
@@ -73,7 +74,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "Update downloads.md with list of .zip files"
-          body: "This PR updates the downloads.md file with a table listing all .zip files."  
+          body: "This PR updates the downloads.md file with a table listing all .zip files."
 
   convert:
     needs: prepare
@@ -85,7 +86,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -95,7 +96,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-    
+
       - name: Create .env file
         run: |
           cp .env.example .env
@@ -106,7 +107,7 @@ jobs:
 
       - name: Install gzip
         run: sudo apt-get install -y gzip
-      
+
       - name: Run auto.sh script
         run: ./auto.sh "${{ matrix.edition_language }}" ? ?
 
@@ -116,8 +117,9 @@ jobs:
       - name: Upload dictionary files to R2
         run: node .github/workflows/upload-files.js dict ${{ needs.prepare.outputs.calver }}
 
-      - name: Upload index.json files to R2
-        run: node .github/workflows/upload-files.js index ${{ needs.prepare.outputs.calver }}
+      # Note: disabled
+      #- name: Upload index.json files to R2
+      #  run: node .github/workflows/upload-files.js index ${{ needs.prepare.outputs.calver }}
 
   merge-ipa:
     needs: ["prepare", "convert"]
@@ -133,10 +135,10 @@ jobs:
 
       - name: Install npm dependencies
         run: npm install
-      
+
       - name: Install AWS SDK
         run: npm install aws-sdk
-      
+
       - name: Download IPA dicts from R2
         run: node .github/workflows/download-ipa.js '${{ needs.prepare.outputs.calver }}'
 
@@ -145,6 +147,6 @@ jobs:
 
       - name: Delete downloaded IPA files
         run: rm *.zip
-      
+
       - name: Upload merged IPA dictionary files to R2
         run: node .github/workflows/upload-files.js merged ${{ needs.prepare.outputs.calver }}

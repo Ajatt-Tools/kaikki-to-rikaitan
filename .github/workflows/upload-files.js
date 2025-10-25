@@ -6,35 +6,35 @@ import path from 'path';
 const s3 = new AWS.S3({
   accessKeyId: process.env.R2_ACCESS_KEY_ID,
   secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-  region: 'auto',
+  region: process.env.R2_REGION ?? 'auto',
   endpoint: process.env.R2_ENDPOINT,
   s3ForcePathStyle: true
 });
 
 export async function uploadFiles(calver, filePattern, description) {
   const bucketName = process.env.R2_BUCKET_NAME;
-  
+
   try {
     console.log(`Finding ${description}...`);
-    
+
     // Find files matching the pattern
     const files = findFiles('data/language', filePattern);
-    
+
     if (files.length === 0) {
       console.log(`No ${description} found.`);
       return;
     }
-    
+
     console.log(`Found ${files.length} ${description}:`);
     files.forEach(file => console.log(`  ${file}`));
-    
+
     // Upload each file to R2
     for (const file of files) {
       const fileName = path.basename(file);
       const key = `releases/${calver}/${fileName}`;
-      
+
       console.log(`Uploading ${fileName} to ${key}...`);
-      
+
       const fileContent = fs.readFileSync(file);
       await s3.upload({
         Bucket: bucketName,
@@ -43,12 +43,12 @@ export async function uploadFiles(calver, filePattern, description) {
         ACL: 'public-read',
         ContentType: getContentType(fileName)
       }).promise();
-      
+
       console.log(`✓ Successfully uploaded ${fileName}`);
     }
-    
+
     console.log(`All ${description} uploaded successfully!`);
-    
+
   } catch (error) {
     console.error(`Error uploading ${description}:`, error.message);
     throw error;
@@ -57,15 +57,15 @@ export async function uploadFiles(calver, filePattern, description) {
 
 function findFiles(dir, pattern) {
   const files = [];
-  
+
   function scanDirectory(currentDir) {
     try {
       const items = fs.readdirSync(currentDir);
-      
+
       for (const item of items) {
         const fullPath = path.join(currentDir, item);
         const stat = fs.statSync(fullPath);
-        
+
         if (stat.isDirectory()) {
           scanDirectory(fullPath);
         } else if (stat.isFile() && pattern.test(item)) {
@@ -77,7 +77,7 @@ function findFiles(dir, pattern) {
       console.log(`Warning: Could not read directory ${currentDir}: ${error.message}`);
     }
   }
-  
+
   scanDirectory(dir);
   return files;
 }
@@ -107,14 +107,14 @@ export async function uploadMergedFiles(calver) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const command = process.argv[2];
   const calver = process.argv[3];
-  
+
   if (!command || !calver) {
     console.error('Usage: node upload-files.js <command> <calver>');
     console.error('Commands: dict, index, merged');
     console.error('Example: node upload-files.js dict 25.08.11.18');
     process.exit(1);
   }
-  
+
   try {
     switch (command) {
       case 'dict':
@@ -134,4 +134,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error('Upload failed:', error.message);
     process.exit(1);
   }
-} 
+}

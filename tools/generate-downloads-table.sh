@@ -85,7 +85,7 @@ for source_lang in "${languages[@]}"; do
 
 	if "$USE_AWS"; then
 		# e.g. https://storage.yandexcloud.net/kaikki-rikaitan-dicts/releases/20.01.01/kty-afb-ja-ipa.zip
-		dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+		dl_url="$aws_bucket_url/releases/latest/kty-$expected_filename.zip"
 	else
 		dl_url="$repo_url/releases/download/${newest_tag}_${column}/kty-${expected_filename}.zip"
 	fi
@@ -137,7 +137,7 @@ for source_lang in "${languages[@]}"; do
 
 
 	if "$USE_AWS"; then
-		dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+		dl_url="$aws_bucket_url/releases/latest/kty-$expected_filename.zip"
 	else
 		dl_url="$repo_url/releases/download/${release_tag}/kty-${expected_filename}.zip"
 	fi
@@ -178,7 +178,7 @@ for target_lang in "${languages[@]}"; do
             expected_filename="${display_filename}-gloss"
 
             if "$USE_AWS"; then
-		    dl_url="$aws_bucket_url/releases/latest/download/kty-$expected_filename.zip"
+		    dl_url="$aws_bucket_url/releases/latest/kty-$expected_filename.zip"
             else
 		    dl_url="$repo_url/releases/download/${newest_tag}_${target_iso}/kty-${expected_filename}.zip"
             fi

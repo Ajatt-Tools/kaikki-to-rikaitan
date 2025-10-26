@@ -1,4 +1,5 @@
-[DOWNLOADS](./downloads.md)
+| [DOWNLOADS](./downloads.md) | [AWS DOWNLOADS](./downloads_aws.md) |
+| --- | --- |
 
 Converts wiktionary data from https://kaikki.org/ to rikaitan-compatible dictionaries. Converted dictionaries can be found in the [Downloads](./downloads.md) section.
 
